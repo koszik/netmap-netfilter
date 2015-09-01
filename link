@@ -1,0 +1,17 @@
+#!/bin/bash -e
+
+kdir=/lib/modules/3.2.0-4-amd64/build
+
+mkdir -p netfilter/.tmp_versions
+mkdir -p ipv{4,6}/netfilter/.tmp_versions
+make -C $kdir M=$PWD 
+make -C $kdir M=$PWD/linux
+make -C $kdir M=$PWD/netfilter \
+ {core,nf_queue,nf_log,nf_sockopt,x_tables,nf_conntrack_{core,acct,ecache,helper,proto,timestamp,l3proto_generic,proto_generic,expect,extend,standalone,proto_{tcp,udp}},xt_{state,hashlimit,limit,conntrack,tcpudp,NOTRACK,CT,length}}.o
+make -C $kdir M=$PWD/ipv4 netfilter.o
+make -C $kdir M=$PWD/ipv4/netfilter ip_tables.o iptable_{filter,raw,mangle}.o ipt_LOG.o nf_conntrack_l3proto_ipv4.o nf_conntrack_proto_icmp.o nf_defrag_ipv4.o ipt_ecn.o
+make -C $kdir M=$PWD/ipv6/netfilter ip6_tables.o ip6table_filter.o ip6t_LOG.o
+make -C netmap
+gcc -c sockopt.c -ggdb -pg
+gcc -o main {main,pktest,missing,datagram,cpumask,sockopt}.o netfilter/*.o ipv4/netfilter.o ipv[46]/netfilter/*.o netmap/{session,netmap_io}.o `ls linux/*.o|grep -v built-in.o` 
+

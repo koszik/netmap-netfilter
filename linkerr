@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./link  2>&1|grep undefi|sed 's/.* to //'|sort|uniq

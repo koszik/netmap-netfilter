@@ -1,0 +1,9 @@
+rm -f main
+make -C netmap clean
+make -C /lib/modules/3.2.0-4-amd64/build M=$PWD clean
+make -C /lib/modules/3.2.0-4-amd64/build M=$PWD/netfilter clean
+make -C /lib/modules/3.2.0-4-amd64/build M=$PWD/linux clean
+make -C /lib/modules/3.2.0-4-amd64/build M=$PWD/ipv4 clean
+make -C /lib/modules/3.2.0-4-amd64/build M=$PWD/ipv6 clean
+make -C /lib/modules/3.2.0-4-amd64/build M=$PWD/ipv6/netfilter clean
+

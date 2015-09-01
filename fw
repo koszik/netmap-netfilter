@@ -1,0 +1,11 @@
+./iptables -F
+./iptables -A INPUT -m state --state NEW -j DROP
+./iptables -A INPUT -m state --state INVALID -j DROP
+./iptables -A INPUT -m state --state RELATED -j ACCEPT
+./iptables -A INPUT -m state --state ESTABLISHED -j ACCEPT
+
+#./iptables -A OUTPUT -j LOG
+#./iptables -A OUTPUT -m state --state NEW -j DROP
+./iptables -A OUTPUT -m state --state INVALID -j DROP
+./iptables -A OUTPUT -m state --state RELATED -j ACCEPT
+./iptables -A OUTPUT -m state --state ESTABLISHED -j ACCEPT
