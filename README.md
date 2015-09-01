@@ -20,9 +20,9 @@ Compiling:
 ```
 mkdir ~/netmap
 cd ~/netmap
-git checkout https://github.com/luigirizzo/netmap
+git clone https://github.com/luigirizzo/netmap
 apt-get source iptables
-git checkout https://github.com/koszik/netmap-netfilter
+git clone https://github.com/koszik/netmap-netfilter
 cd netmap-netfilter
 ./link
 ```
