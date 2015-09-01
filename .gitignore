@@ -21,3 +21,6 @@ modules.builtin
 *.patch
 *.gcno
 Module.symvers
+.tmp_versions
+
+main
